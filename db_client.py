@@ -1,6 +1,7 @@
 from os import environ
 import sqlalchemy as db
 from sqlalchemy.engine.url import URL
+from sqlalchemy.orm import sessionmaker
 
 DB_CONFIG = {
     'drivername': 'postgres',
@@ -23,3 +24,6 @@ class Db_Clinet():
 
     def table_for(self, table_name, schema):
         return db.Table(table_name, self.metadata, autoload=True, autoload_with=self.engine, schema=schema)
+
+    def session(self):
+        return sessionmaker(bind=self.engine)()
