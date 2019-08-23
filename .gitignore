@@ -1,0 +1,6 @@
+.DS_Store
+venv
+.idea
+local_env.sh
+__pycache__
+out.txt
