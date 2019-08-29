@@ -3,7 +3,7 @@ import sqlalchemy as db
 from sqlalchemy.engine.url import URL
 from sqlalchemy.orm import sessionmaker
 
-DB_CONFIG = {
+DB_CONFIG_DEFAULT = {
     'drivername': 'postgres',
     'host': environ['RDS_HOST'],
     'port': environ['RDS_PORT'],
@@ -12,9 +12,14 @@ DB_CONFIG = {
     'database': environ['RDS_DB']
 }
 
-class Db_Clinet():
-    def __init__(self):
-        self.engine = db.create_engine(URL(**DB_CONFIG))
+
+def config(args):
+    return DB_CONFIG_DEFAULT.copy().update(args)
+
+
+class DbClient:
+    def __init__(self, conifg = config({})):
+        self.engine = db.create_engine(URL(**conifg))
         self.connection = self.engine.connect()
         self.metadata = db.MetaData()
 
