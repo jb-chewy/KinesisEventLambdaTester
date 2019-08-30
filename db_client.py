@@ -14,7 +14,9 @@ DB_CONFIG_DEFAULT = {
 
 
 def config(args):
-    return DB_CONFIG_DEFAULT.copy().update(args)
+    copy = DB_CONFIG_DEFAULT.copy()
+    copy.update(args)
+    return copy
 
 
 class DbClient:

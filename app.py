@@ -1,3 +1,4 @@
+import mock_boto3
 import boto3
 import os
 import sys
@@ -6,10 +7,12 @@ import json
 from datetime import datetime
 import time
 from argparse import ArgumentParser
-import tzlocal
+
+# NOTE: You will need your own local_env.py file
+import local_env
 
 mod_name_placeholder = 'placeholder.name'
-
+boto3.session = mock_boto3.session
 
 def main(stream_name, lambda_file, lambda_handler):
     kinesis_client = boto3.client('kinesis', endpoint_url='http://localhost:4567')
